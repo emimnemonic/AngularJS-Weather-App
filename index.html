@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html ng-app="weatherApp">
+	<head>
+        <meta charset="utf-8">
+        <meta name="description" content="A free location-based weather app built with AngularJS and Bootstrap for Free Code Camp intermediate front-end development project">
+        
+        <!-- Mobile Stuff -->
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="msapplication-tap-highlight" content="no">
+        
+        <title>Location Based Weather App</title>
+        <link href="https://fonts.googleapis.com/css?family=Arimo:400,400i,700|Didact+Gothic" rel="stylesheet">
+        <link href='/bower_components/bootstrap/dist/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
+        <link href="/bower_components/Ionicons/css/ionicons.min.css" rel='stylesheet' type="text/css">
+        <link href="style.css" rel='stylesheet' type='text/css'>        
+    </head>
+
+    <body>    
+        <!-- Insert your HTML here -->
+        <div class="container" ng-controller="WeatherController" ng-init="getWeather()">
+            <div class="col-md-8 col-md-offset-2 col-xs-12 loading-block" ng-hide="showApp || showError">
+                <h2><i class="icon ion-load-c spin"></i> Obtaining forecast data...</h2>
+            </div>
+            <div class="col-md-8 col-md-offset-2 col-xs-12 error-block ng-cloak" ng-show="showError">
+                <h2><i class="icon ion-sad-outline"></i> Oops, something has gone wrong...</h2>
+                <p>Tip: make sure that the browser has permission to retrieve your location data, refresh the page and try again!</p>
+            </div>
+            <div class="row forecast-block ng-cloak" ng-show="showApp">
+                <div class="col-md-8 col-md-offset-2 col-xs-12">
+                    <h1 class="location">{{city}}, {{country}}</h1>
+                    <h4 class="summary">{{summary}}</h4>
+                    <div class="temperature tab-content">
+                        <div class="tab-content">
+                            <i class="icon indicator" ng-class="iconClass"></i>
+                            <div class="symbol tab-pane fade in active" role="tabpanel" id="celcius">{{temperature}} &#8451</div>
+                            <div class="symbol tab-pane" role="tabpanel" id="farenheit">{{temperatureFar}} &#8457</div>
+                        </div>
+                    </div>
+                    <ul class="nav nav-tabs toggle" role="tablist">
+                        <li role="presentation" class="active"><a href="#celcius" aria-controls="celcius" role="tab" data-toggle="tab">Celcius &#8451</a></li>
+                        <li role="presentation"><a href="#farenheit" aria-controls="farenheit" role="tab" data-toggle="tab">Farenheit &#8457</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3 col-xs-12 footer-block">
+                    <p>A Weather App by <a href="http://codepen.io/emimnemonic/" target="_blank">Emi</a> built for <a href="https://www.freecodecamp.com/" target="_blank">FreeCodeCamp</a> intermediate Front-End Development project. Data provided by <a href="https://developer.forecast.io/" target="_blank">The Dark Sky Forecast API</a>.</p>
+                </div>
+            </div>
+        </div>
+        <!-- Scripts -->
+        <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+        <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="/bower_components/angular/angular.min.js"></script>
+        <script src="bower_components/angular-resource/angular-resource.min.js"></script>
+        <script src="bower_components/angular-animate/angular-animate.min.js"></script>
+        <script src="app.js"></script>
+    </body>
+</html>

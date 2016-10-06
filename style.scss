@@ -1,0 +1,243 @@
+$darjeeling: #ABDDDE;
+$limited: #000000;
+$whitman: #F98400;
+$loud: 'Didact Gothic', sans-serif;
+$soft: 'Arimo', sans-serif;
+$fade: all linear 0.5s;
+
+@mixin box-sizing($box-model) {
+    -webkit-box-sizing: $box-model;
+    -moz-box-sizing: $box-model;
+    box-sizing: $box-model;
+}
+
+@mixin breakpoint($point) {
+    @if $point == medium {
+        @media (min-width: 768px) and (max-width: 991px) {@content;}
+    } @else if $point == small {
+        @media (max-width: 767px) {@content;}
+    } @else if $point == xsmall {
+        @media (max-width: 480px) {@content;}
+    }
+}
+
+    
+@mixin toggle-buttons($link) {
+    @if $link == inactive {
+        background-color: transparent;
+        border: 1px solid $whitman;
+    }
+    @else if $link == active {
+        background-color: $whitman;
+        color: $limited;
+        border: 1px solid $whitman;
+        pointer-events: none; 
+    }
+}
+
+@mixin transition($transition...) {
+    -webkit-transition: $transition;
+    -moz-transition: $transition;
+    -ms-transition: $transition;
+    -o-transition: $transition;
+    transition: $transition;
+}
+
+@mixin opacity($level) {
+    -webkit-opacity: $level;
+    -moz-opacity: $level;
+    opacity: $level;
+}
+
+@keyframes spin {
+    from {
+        -webkit-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        transform: rotate(0deg);
+    } to {
+        -webkit-transform: rotate(359deg);
+        -ms-transform: rotate(359deg);
+        transform: rotate(359deg);
+    }
+} 
+
+@mixin spin-animation($spin...) {
+    -webkit-animation: $spin;
+    -moz-animation: $spin;
+    -ms-animation: $spin;
+    animation: $spin;
+}
+
+html {
+    @include box-sizing(border-box);
+    margin: 0;
+    padding: 0;
+}
+
+*,
+*:before,
+*:after {
+    @include box-sizing(inherit);
+}
+
+body {
+    background-color: $limited;
+    font: 16px/120% $soft;
+    color: $darjeeling;
+}
+
+h1,
+h2,
+h3,
+h4 {
+    font-family: $loud;
+}
+i,
+a {
+    color: $whitman;
+}
+a:hover {
+    color: $darjeeling;
+    text-decoration: none;
+}
+.ng-cloak {
+    display: none !important;
+}
+.section {
+    text-align: center;
+    padding: 20px;
+}
+.loading-block {
+    @extend .section;
+    @include transition(all 0.5s ease-in-out);
+    h2 {
+        font-size: 3em;
+    }
+    .spin::before {
+        @include spin-animation(spin 1.5s infinite linear);
+    }
+}
+.loading-block.ng-hide {
+    @include opacity(0);
+}
+.error-block {
+    @extend .section;
+    line-height: 130%;
+    h2 {
+        font-size: 2.5em;
+        margin: 40px auto;
+    }
+    p {
+        max-width: 550px;
+        padding: 10px 20px;
+        margin: 20px auto 60px;
+    }
+}
+.forecast-block {
+    @extend .section;
+    @include transition(all 2s ease-in-out);
+    .location {
+        font-size: 3.6em;
+        line-height: 120%;
+        margin: 30px auto 0;
+        @include breakpoint(medium) {
+            font-size: 3em;
+        }
+        @include breakpoint(small) {
+            font-size: 2.6em;
+            line-height: 110%;
+            margin: 24px auto 0;
+        }
+        @include breakpoint(xsmall) {
+            font-size: 2.4em;
+            margin: 24px auto 0;
+        }
+    }
+    
+    .summary {
+        font-size: 2em;
+        line-height: 120%;
+        margin: 15px auto 40px;
+        @include breakpoint(medium) {
+            font-size: 1.6em;
+        }
+        @include breakpoint(small) {
+            font-size: 1.4em;
+        }
+    }
+    
+    .summary:first-letter {
+        text-transform: uppercase;
+    }
+    
+    .temperature {
+        font-size: 6em;
+        font-weight: 700;
+        margin: 20px auto 10px;
+        line-height: 160%;
+        @include breakpoint(medium) {
+            font-size: 4.8em;
+        }
+        @include breakpoint(small) {
+            line-height: 140%;
+            font-size: 3.8em;
+            margin: 40px auto 20px;
+        }
+        .symbol {
+            font-weight: 400;
+        }
+        .indicator {
+            display: inline-block;
+            vertical-align: middle;
+            font-size: 1.5em;
+            padding: 20px 20px 20px 0;
+            @include breakpoint(xsmall) {
+                font-size: 1.2em;
+                padding: 10px 20px;
+            }
+        }
+        .tab-content .active {
+            display: inline-block;
+        }
+    } 
+
+    .toggle {
+        max-width: 260px;
+        margin: 0 auto 20px;
+        text-align: center;
+        border-bottom: 0;
+        li {
+            width: 50%;
+            margin: 5px auto 12px;
+            a {
+                @include toggle-buttons(inactive);
+                margin: -1px;
+                border-radius: 0;
+                }
+            a:hover {
+                background-color: $darjeeling;
+                color: $limited;
+                border: 1px solid $limited;
+            }
+        }
+        .active {
+            a {
+                @include toggle-buttons(active);
+            } 
+            a:hover {
+                @include toggle-buttons(active);
+            }
+            a:focus {
+                @include toggle-buttons(active);
+            }
+        }
+    }
+}
+.forecast-block.ng-hide {
+    @include opacity(0);
+}
+.footer-block {
+    @extend .section;
+    border-top: 1px solid $darjeeling;
+}
+
