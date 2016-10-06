@@ -1,5 +1,7 @@
 **[Weather App made for Free Code Camp Intermediate Front-end project](https://www.freecodecamp.com/challenges/show-the-local-weather)**
 
+![Screenshot of Weather App](./screencapt.png?raw=true "Screenshot")
+
 As I've been busy learning the MEAN stack with the Coursera Web Development course, I decided to build this little weather app using AngularJS, SCSS and HTML.
 
 I used two APIs: [The Dark Sky API](https://darksky.net/dev/) and [Google Maps Geocoding API](https://developers.google.com/maps/documentation/geocoding/start). For REST calls, I used ng-resource which I've found to be quite efficient.
